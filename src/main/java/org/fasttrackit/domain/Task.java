@@ -6,7 +6,7 @@ public class Task {
 
     private long id;
     private String description;
-    private LocalDate deadline:
+    private LocalDate deadline;
     private boolean done;
 
     @Override
