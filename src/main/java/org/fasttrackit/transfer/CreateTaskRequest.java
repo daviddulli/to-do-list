@@ -1,19 +1,12 @@
 package org.fasttrackit.transfer;
 
 import java.time.LocalDate;
-//DTO (data transfer object)
+
+// DTO (Data Transfer Object)
 public class CreateTaskRequest {
 
     private String description;
     private LocalDate deadline;
-
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
-    }
 
     public String getDescription() {
         return description;
@@ -23,6 +16,14 @@ public class CreateTaskRequest {
         this.description = description;
     }
 
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
         return "CreateTaskRequest{" +
@@ -30,4 +31,5 @@ public class CreateTaskRequest {
                 ", deadline=" + deadline +
                 '}';
     }
+
 }

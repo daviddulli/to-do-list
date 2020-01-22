@@ -10,7 +10,9 @@ import java.util.Properties;
 public class DatabaseConfiguration {
 
     public static Connection getConnection() throws SQLException, IOException {
-        InputStream dbProperties = DatabaseConfiguration.class.getClassLoader().getResourceAsStream("db.properties");
+        InputStream dbProperties = DatabaseConfiguration.class.getClassLoader()
+                .getResourceAsStream("db.properties");
+
         try {
             Properties properties = new Properties();
             properties.load(dbProperties);
@@ -20,14 +22,10 @@ public class DatabaseConfiguration {
                     properties.getProperty("username"),
                     properties.getProperty("password"));
         } finally {
-            //closing input stream to allow memory cleanup
+            // closing input stream to allow memory cleanup
             if (dbProperties != null) {
                 dbProperties.close();
             }
-
         }
-
-
     }
-
 }
