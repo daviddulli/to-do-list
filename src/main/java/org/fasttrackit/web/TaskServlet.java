@@ -2,6 +2,7 @@ package org.fasttrackit.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.config.ObjectMapperConfiguration;
+import org.fasttrackit.domain.Task;
 import org.fasttrackit.service.TaskService;
 import org.fasttrackit.transfer.CreateTaskRequest;
 import org.fasttrackit.transfer.UpdateTaskRequest;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/tasks")
 public class TaskServlet extends HttpServlet {
@@ -52,5 +54,17 @@ public class TaskServlet extends HttpServlet {
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "Internal server error: " + e.getMessage());
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            List<Task> tasks = taskService.getTasks();
+            String response = ObjectMapperConfiguration.objectMapper.writeValueAsString(tasks);
+            resp.getWriter().print(response);
+        } catch (SQLException | ClassNotFoundException e) {
+            resp.sendError(500, "Internal server error: " + e.getMessage());
+        }
+
     }
 }
