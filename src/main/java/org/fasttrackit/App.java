@@ -1,5 +1,6 @@
 package org.fasttrackit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.domain.Task;
 import org.fasttrackit.persistance.TaskRepository;
 import org.fasttrackit.transfer.CreateTaskRequest;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class App
 {
-    public static void main( String[] args ) throws IOException, SQLException {
+    public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
         TaskRepository taskRepository = new TaskRepository();
 
         CreateTaskRequest request = new CreateTaskRequest();
@@ -30,6 +31,8 @@ public class App
         taskRepository.updateTask(1, request1);
         List<Task> tasks = taskRepository.getTasks();
         System.out.println(tasks);
+
+
     }
 
 }
