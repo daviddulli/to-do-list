@@ -35,6 +35,7 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccesControlHeaders(resp);
         String id = req.getParameter("id");
 
         try {
@@ -47,6 +48,7 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccesControlHeaders(resp);
         String id = req.getParameter("id");
         UpdateTaskRequest request = ObjectMapperConfiguration.objectMapper.readValue(req.getReader(), UpdateTaskRequest.class);
         try {
@@ -59,6 +61,7 @@ public class TaskServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            setAccesControlHeaders(resp);
             List<Task> tasks = taskService.getTasks();
             String response = ObjectMapperConfiguration.objectMapper.writeValueAsString(tasks);
             resp.getWriter().print(response);
@@ -67,4 +70,20 @@ public class TaskServlet extends HttpServlet {
         }
 
     }
+
+    //for pre-flight request
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccesControlHeaders(resp);
+    }
+
+    //CORS configuration (Cross Origin Resource Sharing)
+    private void setAccesControlHeaders(HttpServletResponse resp){
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+
+
+    }
+
 }
